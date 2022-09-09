@@ -6,6 +6,7 @@ import { sdk, gameId } from "../services";
 
 export const AddPlayer = () => {
   const [address, setAddress] = useState("");
+  const [isClicked, setIsClicked] = useState(true)
   const { addPlayer } = useContext(GlobalContext);
   let history = useHistory();
 
@@ -15,7 +16,9 @@ export const AddPlayer = () => {
       gameId: gameId,
       walletAddress: address
     });
-    addPlayer(data);
+    setTimeout(() => {
+      addPlayer(data);
+    }, 1000);
     history.push("/");
   };
 
@@ -39,9 +42,16 @@ export const AddPlayer = () => {
             />
           </div>
           <div className="flex items-center justify-between">
-            <button className="mt-5 bg-green-400 w-full hover:bg-green-500 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
-              Add Items
-            </button>
+            {isClicked ? (
+              <button onClick={() => setIsClicked(false)} className="mt-5 bg-green-400 w-full hover:bg-green-500 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
+                Add Items
+              </button>
+            ):(
+              <button className="mt-5 bg-green-400 w-full hover:bg-green-500 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
+                Please wait, Processing...
+              </button>
+            )}
+            
           </div>
           <div className="text-center mt-4 text-gray-500">
             <Link to="/">Cancel</Link>

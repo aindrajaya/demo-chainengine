@@ -32,6 +32,7 @@ export const players = [
 ];
 
 export const TransferNFT = (route) => {
+  const [isClicked, setIsClicked] = useState(true)
   const [amount, setAmount] = useState();
   let history = useHistory();
   const { items, transferNFT } = useContext(GlobalContext);
@@ -149,9 +150,16 @@ export const TransferNFT = (route) => {
             />
           </div>
           <div className="flex items-center justify-between">
-            <button className="block mt-5 bg-green-400 w-full hover:bg-green-500 text-white font-bold py-2 px-4 rounded focus:text-gray-600 focus:shadow-outline">
-              Transfer to Player
-            </button>
+            {isClicked ? (
+              <button onClick={() => setIsClicked(false)} className="block mt-5 bg-green-400 w-full hover:bg-green-500 text-white font-bold py-2 px-4 rounded focus:text-gray-600 focus:shadow-outline">
+                Transfer to Player
+              </button>
+            ) : (
+              <button className="block mt-5 bg-green-400 w-full hover:bg-green-500 text-white font-bold py-2 px-4 rounded focus:text-gray-600 focus:shadow-outline">
+                Please wait, Processing...
+              </button>
+            )}
+            
           </div>
           <div className="text-center mt-4 text-gray-500">
             <Link to="/">Cancel</Link>
