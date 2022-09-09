@@ -15,7 +15,7 @@ export const Itemlist = () => {
         queryBy: FetchTypeExport.Game,
         id: gameId,
         page: 1,
-        limit: 5
+        limit: 6
       });
       getAllItems(data);
       // console.log(data, "from useEffect");
