@@ -1,10 +1,46 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { gameId } from "../services";
+import {sdk, gameId, FetchTypeExport } from "../services";
 import Table from "./Table";
 import { players } from "./TransferNFT";
 
+
 export const Heading = () => {
+  const [allPlayers, setAllPlayers] = useState()
+  
+  async function getPlayersFromBlockchain() {
+    try {
+      // const data = await sdk.nfts.getNFTsByParams({
+      //   queryBy: FetchTypeExport.Game,
+      //   id: gameId,
+      //   page: 1,
+      //   limit: 5
+      // });
+      // const data2 = await sdk.players.getByGameId({
+      //   queryBy: FetchTypeExport.Player,
+      //   id: gameId,
+      //   page: 1,
+      //   limit: 10
+      // })
+      
+      const data = await sdk.PlayerController_getPlayerByGameId({
+        gameId: gameId,
+        'x-api-secret': process.env.REACT_APP_SECRET_KEY,
+        'x-api-key': process.env.REACT_APP_API_KEY
+      })
+      setAllPlayers(data);
+      console.log(data, "from useEffect");
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
+  console.log(allPlayers, "players data")
+
+  useEffect(() => {
+    getPlayersFromBlockchain()
+  }, [])
+
   return (
     <div>
       <div className="flex items-center mt-24 mb-10">
