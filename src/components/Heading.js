@@ -45,9 +45,10 @@ export const Heading = () => {
     <div>
       <div className="flex items-center mt-24 mb-10">
         <div className="flex-grow text-left px-4 py-2 m-2">
-          <h5 className="text-gray-900 font-bold text-xl">Game ID: {gameId}</h5>
+          <h5 className="text-gray-900 font-bold text-xl">Game ID: <span className="text-gray-600">{gameId}</span></h5>
         </div>
       </div>
+      
       <div className="flex-grow text-right px-4 py-2 m-2">
         <Link to="/addPlayer">
           <button className="bg-green-400 hover:bg-green-500 text-white font-semibold py-2 px-4 rounded inline-flex items-center">
@@ -71,6 +72,9 @@ export const Heading = () => {
           </button>
         </Link>
       </div>
+      <h2 className="font-medium leading-tight text-2xl mt-0 mb-6 text-black-600">
+        Player List (<span className="text-gray-600">ID and Wallet Address</span>):{" "}
+      </h2>
       <div className="flex-w-full px-32 items-center mt-2 mb-10">
         <Table data={players} />
       </div>
