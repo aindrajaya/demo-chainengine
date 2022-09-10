@@ -58,6 +58,7 @@ export const AddItem = () => {
               onChange={(e) => setName(e.target.value)}
               type="text"
               placeholder="Enter item name"
+              required
             />
           </div>
           <div className="w-full  mb-5">
@@ -73,6 +74,7 @@ export const AddItem = () => {
               onChange={(e) => setImageURI(e.target.value)}
               type="text"
               placeholder="Enter Image URI"
+              required
             />
           </div>
           <div className="w-full  mb-5">
@@ -88,6 +90,7 @@ export const AddItem = () => {
               onChange={(e) => setDescription(e.target.value)}
               type="text"
               placeholder="Enter description"
+              required
             />
           </div>
           <div className="w-full  mb-5">
@@ -103,6 +106,7 @@ export const AddItem = () => {
               onChange={(e) => setSupply(e.target.value)}
               type="text"
               placeholder="Enter Supply Items"
+              required
             />
           </div>
           <div className="w-full  mb-5">
