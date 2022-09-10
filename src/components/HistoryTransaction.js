@@ -1,9 +1,10 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-const History = ({ data }) => {
+const History = ({data}) => {
+  const transactions = data || [];
   const datas = [];
-  data.filter((n, idx) => {
+  transactions.filter((n, idx) => {
     if (idx % 2 === 1) {
       return datas.push(n);
     }

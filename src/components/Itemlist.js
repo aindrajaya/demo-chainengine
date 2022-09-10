@@ -9,6 +9,8 @@ export const Itemlist = () => {
     GlobalContext
   );
 
+  const itemList = items || []
+
   async function getItemsFromBlockchain() {
     try {
       const data = await sdk.nfts.getNFTsByParams({
@@ -35,7 +37,7 @@ export const Itemlist = () => {
       <h2 className="font-medium leading-tight text-2xl mt-0 mb-0 text-black-600">
         Item List (<span className="text-gray-600">NFTs</span>):{" "}
       </h2>
-      {items.length > 0 ? (
+      {itemList.length > 0 ? (
         <div className="p-10 grid grid-cols-1 sm:grid-cols-1 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-3 gap-5">
           <Card data={items} action={transferNFT} />
         </div>
@@ -44,7 +46,7 @@ export const Itemlist = () => {
           <div role="status">
             <svg
               aria-hidden="true"
-              class="mr-2 w-8 h-8 text-gray-200 animate-spin dark:text-gray-600 fill-blue-600"
+              className="mr-2 w-8 h-8 text-gray-200 animate-spin dark:text-gray-600 fill-blue-600"
               viewBox="0 0 100 101"
               fill="none"
               xmlns="http://www.w3.org/2000/svg"
@@ -58,7 +60,7 @@ export const Itemlist = () => {
                 fill="currentFill"
               />
             </svg>
-            <span class="sr-only">Loading...</span>
+            <span className="sr-only">Loading...</span>
           </div>
         </p>
       )}
@@ -67,7 +69,7 @@ export const Itemlist = () => {
       </h2>
       {/* <ReactJson src={transactions} theme="monokai" /> */}
       <div className="p-16 mt-0">
-        <History data={transactions} />
+        <History data={transactions}/>
       </div>
     </div>
   );
