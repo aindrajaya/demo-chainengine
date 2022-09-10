@@ -4,42 +4,50 @@ import {sdk, gameId, FetchTypeExport } from "../services";
 import Table from "./Table";
 import { players } from "./TransferNFT";
 
+// const sdk2 = require('api')('@chainengine/v1.0#9fkt3il69sxq8k')
 
 export const Heading = () => {
-  const [allPlayers, setAllPlayers] = useState()
-  
-  async function getPlayersFromBlockchain() {
-    try {
-      // const data = await sdk.nfts.getNFTsByParams({
-      //   queryBy: FetchTypeExport.Game,
-      //   id: gameId,
-      //   page: 1,
-      //   limit: 5
-      // });
-      // const data2 = await sdk.players.getByGameId({
-      //   queryBy: FetchTypeExport.Player,
-      //   id: gameId,
-      //   page: 1,
-      //   limit: 10
-      // })
-      
-      const data = await sdk.PlayerController_getPlayerByGameId({
-        gameId: gameId,
-        'x-api-secret': process.env.REACT_APP_SECRET_KEY,
-        'x-api-key': process.env.REACT_APP_API_KEY
-      })
-      setAllPlayers(data);
-      console.log(data, "from useEffect");
-    } catch (error) {
-      console.error(error);
-    }
-  }
 
-  console.log(allPlayers, "players data")
+  /**
+   * Pick players from blockchain
+   */
+  // const [allPlayers, setAllPlayers] = useState()
+  // async function getPlayersFromBlockchain() {
+  //   try {
+  //     const data = await sdk2.PlayerController_getPlayerByGameId({
+  //       gameId: gameId,
+  //       'x-api-secret': process.env.REACT_APP_SECRET_KEY,
+  //       'x-api-key': process.env.REACT_APP_API_KEY
+  //     })
+  //     setAllPlayers(data);
+  //     console.log(data, "from useEffect");
+  //   } catch (error) {
+  //     console.error(error);
+  //   }
+  // }
+  // console.log(allPlayers, "players data")
+  // useEffect(() => {
+  //   getPlayersFromBlockchain()
+  // }, [])
 
-  useEffect(() => {
-    getPlayersFromBlockchain()
-  }, [])
+  /**
+   * Pick Player Function and show their NFTs
+   */
+  // const [playerId, setPlayer] = useState()
+  // const response = await sdk.nfts.getNFTsByParams({
+  //   queryBy: FetchTypeExport.Player,
+  //   id: playerId,
+  //   page: 1,
+  //   limit: 10,
+  // });
+
+  /**
+   * Create Game function
+   */
+  // const data = await sdk.players.create({
+  //   gameId: gameId,
+  //   walletAddress: '0x32c45d580DE0F6126941bfb8ff2181e778545E85',
+  // });
 
   return (
     <div>
@@ -76,7 +84,8 @@ export const Heading = () => {
         Player List (<span className="text-gray-600">ID and Wallet Address</span>):{" "}
       </h2>
       <div className="flex-w-full px-32 items-center mt-2 mb-10">
-        <Table data={players} />
+        {/* <Table data={players} pickPlayer={setPlayer}/> */}
+        <Table data={players}/>
       </div>
       <div className="flex-grow text-right px-4 py-2 m-2">
         <Link to="/add">
