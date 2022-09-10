@@ -5,24 +5,24 @@ const Card = ({ data, action }) => {
   return (
     <Fragment>
       {data[0].map((item) => (
-        <div class="flex justify-center" key={item?.id}>
-          <div class="flex flex-col md:flex-row md:max-w-xl rounded-lg bg-white shadow-lg">
+        <div className="flex justify-center" key={item?.id}>
+          <div className="flex flex-col md:flex-row md:max-w-xl rounded-lg bg-white shadow-lg">
             <img
-              class=" w-96 h-96 md:h-auto object-fill md:w-48 rounded-t-lg md:rounded-none md:rounded-l-lg"
+              className=" w-96 h-96 md:h-auto object-fill md:w-48 rounded-t-lg md:rounded-none md:rounded-l-lg"
               src={item?.metadata?.image}
               alt=""
             />
-            <div class="p-6 flex flex-col justify-start">
-              <h5 class="text-gray-900 text-xl font-medium mb-2">
+            <div className="p-6 flex flex-col justify-start">
+              <h5 className="text-gray-900 text-xl font-medium mb-2">
                 {item?.metadata?.name}
               </h5>
-              <p class="text-gray-700 text-base mb-4">
+              <p className="text-gray-700 text-base mb-4">
                 {item?.metadata?.description}
               </p>
               <p className="text-gray-600">
                 Supply Items: {item?.supplyAvailable}
               </p>
-              <p class="text-gray-600 text-xs">Last updated 3 mins ago</p>
+              <p className="text-gray-600 text-xs">Last updated 3 mins ago</p>
               <div className="flex-auto text-center px-4 py-2 m-2">
                 <Link to={`/transfer/${item?.id}`}>
                   <button

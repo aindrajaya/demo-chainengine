@@ -1,6 +1,8 @@
 import React from "react";
+// import { Link } from "react-router-dom";
 
 export default function Table({ data }) {
+// export default function Table({ data, pickPlayer }) {
   return (
     <div className="flex flex-col">
       <div className="overflow-x-auto">
@@ -31,11 +33,12 @@ export default function Table({ data }) {
               </thead>
               <tbody className="divide-y divide-gray-200">
                 {data.map((player, idx) => (
-                  <tr>
+                  <tr key={idx}>
                     <td className="pl-4 pr-0 py-4 text-sm font-medium text-gray-800">
                       {idx + 1}
                     </td>
                     <td className="pl-4 pr-0 py-4 text-sm font-medium text-gray-800">
+                      {/* <Link to={``}> */}
                       {player.id}
                     </td>
                     <td className="px-0 py-4 text-sm text-gray-800 whitespace-nowrap">
