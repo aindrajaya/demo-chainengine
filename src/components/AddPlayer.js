@@ -12,13 +12,17 @@ export const AddPlayer = () => {
 
   const onSubmit = async (e) => {
     e.preventDefault();
-    const data = await sdk.players.create({
-      gameId: gameId,
-      walletAddress: address
-    });
-    setTimeout(() => {
-      addPlayer(data);
-    }, 1000);
+    if(address.length === 42){
+      const data = await sdk.players.create({
+        gameId: gameId,
+        walletAddress: address
+      });
+      setTimeout(() => {
+        addPlayer(data);
+      }, 1000);
+    } else (
+      alert(`ERROR, address ${address} not valid`)
+    )
     history.push("/");
   };
 
@@ -36,9 +40,10 @@ export const AddPlayer = () => {
             <input
               className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:text-gray-600"
               value={address}
-              onChange={(e) => setAddress(e.target.value)}
+              onChange={(e) => {setAddress(e.target.value)}}
               type="text"
               placeholder="Enter name"
+              required
             />
           </div>
           <div className="flex items-center justify-between">
