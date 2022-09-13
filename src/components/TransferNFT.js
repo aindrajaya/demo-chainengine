@@ -83,7 +83,6 @@ export const TransferNFT = (route) => {
   }, [selectedItem]);
 
   const onSubmit = async (e) => {
-    const datas = "error"
     e.preventDefault();
     // editEmployee(selectedUser);
     if(selectedItem.supplyAvailable > 0){
@@ -93,13 +92,11 @@ export const TransferNFT = (route) => {
         selectedItem.id
       ); 
       if(data.status === "OK"){
-        transferNFT(data);
+        await transferNFT(data);
         // alert(`Transaction success, click OK`)
         setOverlayActive(false)
       } else {
-        transferNFT(datas)
-        setOverlayActive(false)
-        alert(`Transaction not success, Wrong input ${selected}, click OK for next`)
+        alert(`Transaction not success, click OK for next`)
       }
     } else {
       alert(`Don't have enough amount to transfer for this item ${selectedItem.metadata.name}`)
