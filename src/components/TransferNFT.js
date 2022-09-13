@@ -3,6 +3,8 @@ import { GlobalContext } from "../context/GlobalState";
 import { useHistory, Link } from "react-router-dom";
 import { sdk} from "../services";
 
+import LoadingOverlay from "react-loading-overlay";
+
 export const players = [
   {
     name: "Player 1",
@@ -32,6 +34,7 @@ export const players = [
 ];
 
 export const TransferNFT = (route) => {
+  const {playersData} = useContext(GlobalContext)
   const [isClicked, setIsClicked] = useState(true)
   const [amount, setAmount] = useState();
   let history = useHistory();
@@ -46,9 +49,10 @@ export const TransferNFT = (route) => {
 
   //Players Feature
   const [selected, setSelected] = useState(players.value);
+  const [overlayActive, setOverlayActive] = useState(false)
 
   const handleChange = (event) => {
-    console.log(event.target.value, "data selected player");
+    // console.log(event.target.value, "data selected player");
     setSelected(event.target.value);
   };
   // async function getPlayersFromBlockchain() {
@@ -81,12 +85,22 @@ export const TransferNFT = (route) => {
   const onSubmit = async (e) => {
     e.preventDefault();
     // editEmployee(selectedUser);
-    const data = await sdk.nfts.transfer(
-      { playerId: selected, amount: amount },
-      selectedItem.id
-    );
-    // console.log(data, "from transfer page");
-    transferNFT(data);
+    if(selectedItem.supplyAvailable > 0){
+      setOverlayActive(true)
+      const data = await sdk.nfts.transfer(
+        { playerId: selected, amount: amount },
+        selectedItem.id
+      ); 
+      if(data.status === "OK"){
+        transferNFT(data);
+        // alert(`Transaction success, click OK`)
+        setOverlayActive(false)
+      } else {
+        alert(`Transaction not success, Wrong input ${selected}, click OK for next`)
+      }
+    } else {
+      alert(`Don't have enough amount to transfer for this item ${selectedItem.metadata.name}`)
+    }
     history.push("/");
   };
 
@@ -97,74 +111,79 @@ export const TransferNFT = (route) => {
   return (
     <Fragment>
       <div className="w-full max-w-sm container mt-20 mx-auto">
-        <form onSubmit={onSubmit}>
-          <div className="w-full mb-5">
-            <label
-              className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
-              htmlFor="name"
-            >
-              Name of item is {selectedItem.metadata.name}
-            </label>
-            <div>
-              <img alt="this is the NFT card" src={selectedItem.metadata.image} />
-            </div>
-            {/* <input
-              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:text-gray-600 focus:shadow-outline"
-              value={playerAddress}
-              onChange={(e) => setPlayerAddress(e.target.value)}
-              type="text"
-              placeholder="Enter player ID to transfer"
-            /> */}
-            <div class="relative mt-5">
-              <select
-                class="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-                id="grid-state"
-                value={selected}
-                onChange={handleChange}
-                required
+        <LoadingOverlay 
+          styles={{
+            wrapper: {
+              width: 'auto',
+              height: 'auto',
+            },
+          }}
+          active={overlayActive} 
+          spinner 
+          text='Wait a moment, transaction processing...'
+        >
+          <form onSubmit={onSubmit}>
+            <div className="w-full mb-5">
+              <label
+                className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
+                htmlFor="name"
               >
-                <option>Select Player</option>
-                {players.map((option, key) => (
-                  <option key={key} value={option.value}>
-                    {option.id}
-                  </option>
-                ))}
-              </select>
-              <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
-                <svg
-                  class="fill-current h-4 w-4"
-                  xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 0 20 20"
-                >
-                  <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />
-                </svg>
+                Name of item is {selectedItem.metadata.name}
+              </label>
+              <div>
+                <img alt="this is the NFT card" src={selectedItem.metadata.image} />
               </div>
+              <div class="relative mt-5">
+                <select
+                  class="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                  id="grid-state"
+                  value={selected}
+                  onChange={handleChange}
+                  required
+                >
+                  <option>Select Player</option>
+                  {playersData.map((option, key) => (
+                    <option key={key} value={option.value}>
+                      {option.id}
+                    </option>
+                  ))}
+                </select>
+                <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
+                  <svg
+                    class="fill-current h-4 w-4"
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 20 20"
+                  >
+                    <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />
+                  </svg>
+                </div>
+              </div>
+              <input
+                className="shadow mt-4 appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:text-gray-600 focus:shadow-outline"
+                value={amount}
+                onChange={(e) => setAmount(e.target.value)}
+                type="text"
+                placeholder={`Input amount, Available amount is ${selectedItem.supplyAvailable}`}
+                required
+              />
             </div>
-            <input
-              className="shadow mt-4 appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:text-gray-600 focus:shadow-outline"
-              value={amount}
-              onChange={(e) => setAmount(e.target.value)}
-              type="text"
-              placeholder={`Input amount, Available amount is ${selectedItem.supplyAvailable}`}
-              required
-            />
-          </div>
-          <div className="flex items-center justify-between">
-            {isClicked ? (
-              <button onClick={() => setIsClicked(false)} className="block mt-5 bg-green-400 w-full hover:bg-green-500 text-white font-bold py-2 px-4 rounded focus:text-gray-600 focus:shadow-outline">
-                Transfer to Player
-              </button>
-            ) : (
-              <button className="block mt-5 bg-green-400 w-full hover:bg-green-500 text-white font-bold py-2 px-4 rounded focus:text-gray-600 focus:shadow-outline">
-                Please wait, Processing...
-              </button>
-            )}
-            
-          </div>
-          <div className="text-center mt-4 text-gray-500">
-            <Link to="/">Cancel</Link>
-          </div>
-        </form>
+            <div className="flex items-center justify-between">
+              {isClicked ? (
+                <button onClick={() => setIsClicked(false)} className="block mt-5 bg-green-400 w-full hover:bg-green-500 text-white font-bold py-2 px-4 rounded focus:text-gray-600 focus:shadow-outline">
+                  Transfer to Player
+                </button>
+              ) : (
+                <button className="block mt-5 bg-green-400 w-full hover:bg-green-500 text-white font-bold py-2 px-4 rounded focus:text-gray-600 focus:shadow-outline">
+                  Please wait, Processing...
+                </button>
+              )}
+              
+            </div>
+            <div className="text-center mt-4 text-gray-500">
+              <Link to="/">Cancel</Link>
+            </div>
+          </form>
+        </LoadingOverlay>
       </div>
     </Fragment>
   );
