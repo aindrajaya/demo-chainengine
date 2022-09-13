@@ -10,7 +10,8 @@ export default (state, action) => {
       };
     case "ADD_PLAYER":
       return {
-        player: action.payload
+        ...state,
+        playersData: [...state.playersData, action.payload]
       };
     case "GET_ALL_ITEMS":
       return {
