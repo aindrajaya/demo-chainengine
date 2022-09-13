@@ -83,6 +83,7 @@ export const TransferNFT = (route) => {
   }, [selectedItem]);
 
   const onSubmit = async (e) => {
+    const datas = "error"
     e.preventDefault();
     // editEmployee(selectedUser);
     if(selectedItem.supplyAvailable > 0){
@@ -96,6 +97,8 @@ export const TransferNFT = (route) => {
         // alert(`Transaction success, click OK`)
         setOverlayActive(false)
       } else {
+        transferNFT(datas)
+        setOverlayActive(false)
         alert(`Transaction not success, Wrong input ${selected}, click OK for next`)
       }
     } else {
@@ -131,7 +134,7 @@ export const TransferNFT = (route) => {
                 Name of item is {selectedItem.metadata.name}
               </label>
               <div>
-                <img alt="this is the NFT card" src={selectedItem.metadata.image} />
+                <img className="w-full h-full object-cover" alt="this is the NFT card" src={selectedItem.metadata.image} />
               </div>
               <div class="relative mt-5">
                 <select
