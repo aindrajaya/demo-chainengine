@@ -22,7 +22,7 @@ export const AddItem = () => {
 
   const onSubmit = async (e) => {
     e.preventDefault();
-    if(supply !== 0){
+    if(supply > 0){
       setOverlayActive(true)
       const data = await sdk.nfts.mintToGame(
         {
