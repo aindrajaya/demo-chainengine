@@ -59,11 +59,18 @@ const initialState = {
       supplyAvailable: 7
     }
   ],
-  player: {
-    id: "bfb11de3-5e5e-440e-affc-56f14e8a1b45",
-    gameId: "aa626681-f03a-4c8c-a7c8-294051743c53",
-    walletAddress: "0x03aefFc2a553E7A375e8B4Ca581494aB49bE0eF6"
-  },
+  playersData: [
+    {
+      id: "0b80f768-77ee-46bf-8ea7-386b15533bcd",
+      gameId: "aa626681-f03a-4c8c-a7c8-294051743c53",
+      walletAddress: "0xAd3E55E740C59951F433Bc7127319E0772b36b18"
+    },
+    {
+      id: "327a6728-c42a-4b2d-8fac-5ffab06566c3",
+      gameId: "aa626681-f03a-4c8c-a7c8-294051743c53",
+      walletAddress: "0x2Aae54DdA49935fF06C233ffC23FDEbd10D4E3C2"
+    },
+  ],
   items: []
 };
 
@@ -119,7 +126,7 @@ export const GlobalProvider = ({ children }) => {
   return (
     <GlobalContext.Provider
       value={{
-        player: state.player,
+        playersData: state.playersData,
         items: state.items,
         transactions: state.transactions,
         getAllItems,
