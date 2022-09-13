@@ -7,7 +7,7 @@ const Card = ({ data, action }) => {
       {data[0].map((item) => (
         <div key={item?.id} className="max-w-sm bg-white rounded-lg border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700">
           <Link to="#">
-              <img className="w-full h-96 md:h-48 object-cover" src={item?.metadata?.image} alt="" />
+              <img className="w-full h-48 object-cover" src={item?.metadata?.image} alt="" />
           </Link>
           <div className="p-5">
               <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">{item?.metadata?.name}</h5>
