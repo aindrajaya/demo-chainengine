@@ -7,6 +7,7 @@ import { GlobalProvider } from "./context/GlobalState";
 import { AddPlayer } from "./components/AddPlayer";
 import { TransferNFT } from "./components/TransferNFT";
 import { AddItem } from "./components/AddItem";
+import NotFound from "./pages/NotFound";
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
         <Route path="/" component={Home} exact />
         <Route path="/add" component={AddItem} exact />
         <Route path="/addPlayer" component={AddPlayer} exact />
+        <Route path="/addGame" component={NotFound} exact />
         <Route path="/transfer/:id" component={TransferNFT} exact />
       </Switch>
     </GlobalProvider>

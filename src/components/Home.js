@@ -3,17 +3,16 @@ import { Heading } from "./Heading";
 import { Itemlist } from "./Itemlist";
 
 export const Home = () => {
-  return (
 
+
+  return (
     <Fragment>
-      <div className="App">
-        <div className="container mx-auto">
-          <h3 className="text-center  text-3xl mt-20 text-base leading-8 text-black font-bold tracking-wide uppercase">
-            Try Chainengine Web
-          </h3>
-          <Heading />
-          <Itemlist />
-        </div>
+      <div className="App mx-20">
+        <h3 className="text-center text-3xl mt-20 leading-8 text-black font-bold tracking-wide uppercase">
+          Try Chainengine Web
+        </h3>
+        <Heading />
+        <Itemlist />
       </div>
     </Fragment>
   );
