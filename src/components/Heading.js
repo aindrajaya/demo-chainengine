@@ -113,7 +113,7 @@ export const Heading = () => {
       <h2 className="font-medium leading-tight text-2xl mt-0 mb-6 text-black-600">
         Player List (<span className="text-gray-600">ID and Wallet Address</span>):{" "}
       </h2>
-      <div className="flex-w-full px-32 items-center mt-2 mb-10">
+      <div className="flex-w-full md:px-8 sm:px-0 items-center mt-2 mb-10">
         {/* <Table data={players} pickPlayer={setPlayer}/> */}
         <Table data={playersData}/>
       </div>

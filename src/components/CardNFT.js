@@ -5,7 +5,7 @@ const Card = ({ data, action }) => {
   return (
     <Fragment>
       {data[0].map((item) => (
-        <div key={item?.id} className="max-w-sm bg-white rounded-lg border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700">
+        <div key={item?.id} className="max-w-sm items-center bg-white rounded-lg border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700">
           <Link to="#">
               <img className="w-full h-48 object-cover" src={item?.metadata?.image} alt="" />
           </Link>
