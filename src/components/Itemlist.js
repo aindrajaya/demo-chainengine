@@ -38,7 +38,7 @@ export const Itemlist = () => {
         Item List (<span className="text-gray-600">NFTs</span>):{" "}
       </h2>
       {itemList.length > 0 ? (
-        <div className="grid justify-items-center grid-cols-1 sm:grid-cols-1 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-3 gap-5">
+        <div className="grid justify-items-center grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-3 gap-5">
           <Card data={items} action={transferNFT} />
         </div>
       ) : (
@@ -64,7 +64,7 @@ export const Itemlist = () => {
           </div>
         </p>
       )}
-      <h2 className="font-medium leading-tight text-2xl mt-0 mb-0 text-black-600">
+      <h2 className="font-medium leading-tight text-2xl mt-10 mb-2 text-black-600">
         Transaction Data (<span className="text-gray-600">txHash</span>):{" "}
       </h2>
       {/* <ReactJson src={transactions} theme="monokai" /> */}
