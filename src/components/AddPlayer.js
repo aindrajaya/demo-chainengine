@@ -13,6 +13,11 @@ export const AddPlayer = () => {
   const { addPlayer } = useContext(GlobalContext);
   let history = useHistory();
 
+  const transactionSuccess = (data) => {
+    if(data.status === "OK") return
+    addPlayer(data)
+  }
+
   const onSubmit = async (e) => {
     e.preventDefault();
     if(address.length === 42){
@@ -21,13 +26,7 @@ export const AddPlayer = () => {
         gameId: gameId,
         walletAddress: address
       });
-      if(data.status === "OK"){
-        addPlayer(data);
-        // alert(`Add player success, click OK`)
-        setOverlayActive(false)
-      } else {
-        alert(`Add player not success, Wrong input, click OK for next`)
-      }
+      transactionSuccess(data)
     } else (
       alert(`ERROR, address ${address} not valid`)
     )
@@ -67,15 +66,16 @@ export const AddPlayer = () => {
               />
             </div>
             <div className="flex items-center justify-between">
-              {isClicked ? (
-                <button onClick={() => setIsClicked(false)} className="mt-5 bg-green-400 w-full hover:bg-green-500 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
-                  Add Items
-                </button>
+              <button onClick={() => setIsClicked(false)} className="mt-5 bg-green-400 w-full hover:bg-green-500 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
+                Add Items
+              </button>
+              {/* {isClicked ? (
+                
               ):(
                 <button className="mt-5 bg-green-400 w-full hover:bg-green-500 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
                   Please wait, Processing...
                 </button>
-              )}
+              )} */}
               
             </div>
             <div className="text-center mt-4 text-gray-500">
