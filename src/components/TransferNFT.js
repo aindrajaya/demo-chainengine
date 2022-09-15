@@ -35,8 +35,7 @@ export const players = [
 
 export const TransferNFT = (route) => {
   const {playersData} = useContext(GlobalContext)
-  const [isClicked, setIsClicked] = useState(true)
-  const [amount, setAmount] = useState();
+  const [amountInput, setAmountInput] = useState();
   let history = useHistory();
   const { items, transferNFT } = useContext(GlobalContext);
   const [selectedItem, setSelectedItem] = useState({
@@ -73,30 +72,35 @@ export const TransferNFT = (route) => {
   // console.log(players, "ini players");
 
   useEffect(() => {
-    // get();
     // getPlayersFromBlockchain();
     const itemId = currentItemId;
     const selectedItem = items[0].find((emp) => emp.id === itemId);
-    // console.log(selectedItem, "dari useeffect");
     setSelectedItem(selectedItem);
     // eslint-disable-next-line
   }, [selectedItem]);
 
+  const transferSuccess = (data) => {
+    if(data.status === 'OK'){
+      transferNFT(data);
+    } else {
+      alert(`Error, ${data.message}`)
+    }
+  }
+
   const onSubmit = async (e) => {
     e.preventDefault();
-    // editEmployee(selectedUser);
     if(selectedItem.supplyAvailable > 0){
       setOverlayActive(true)
       const data = await sdk.nfts.transfer(
-        { playerId: selected, amount: amount },
+        { playerId: selected, amount: amountInput },
         selectedItem.id
-      ); 
-      if(data.status === "OK"){
-        await transferNFT(data);
-        // alert(`Transaction success, click OK`)
+      );
+      if(amountInput >= 1){
+        transferSuccess(data)
         setOverlayActive(false)
       } else {
-        alert(`Transaction not success, click OK for next`)
+        alert(`Error, amount 0 nothing transfered`)
+        setOverlayActive(false)
       }
     } else {
       alert(`Don't have enough amount to transfer for this item ${selectedItem.metadata.name}`)
@@ -143,7 +147,7 @@ export const TransferNFT = (route) => {
                 >
                   <option>Select Player</option>
                   {playersData.map((option, key) => (
-                    <option key={key} value={option.value}>
+                    <option key={key} value={option.value} defaultValue="string">
                       {option.id}
                     </option>
                   ))}
@@ -160,23 +164,25 @@ export const TransferNFT = (route) => {
               </div>
               <input
                 className="shadow mt-4 appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:text-gray-600 focus:shadow-outline"
-                value={amount}
-                onChange={(e) => setAmount(e.target.value)}
-                type="text"
+                value={amountInput}
+                onChange={(e) => setAmountInput(e.target.value)}
+                onkeypress="return event.charCode >= 48 && event.charCode <= 57"
+                type="number"
                 placeholder={`Input amount, Available amount is ${selectedItem.supplyAvailable}`}
                 required
               />
             </div>
             <div className="flex items-center justify-between">
-              {isClicked ? (
-                <button onClick={() => setIsClicked(false)} className="block mt-5 bg-green-400 w-full hover:bg-green-500 text-white font-bold py-2 px-4 rounded focus:text-gray-600 focus:shadow-outline">
-                  Transfer to Player
-                </button>
+              <button className="block mt-5 bg-green-400 w-full hover:bg-green-500 text-white font-bold py-2 px-4 rounded focus:text-gray-600 focus:shadow-outline">
+                Transfer to Player
+              </button>
+              {/* {isClicked ? (
+                
               ) : (
                 <button className="block mt-5 bg-green-400 w-full hover:bg-green-500 text-white font-bold py-2 px-4 rounded focus:text-gray-600 focus:shadow-outline">
                   Please wait, Processing...
                 </button>
-              )}
+              )} */}
               
             </div>
             <div className="text-center mt-4 text-gray-500">
