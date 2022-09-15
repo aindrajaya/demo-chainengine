@@ -38,7 +38,7 @@ export const Itemlist = () => {
         Item List (<span className="text-gray-600">NFTs</span>):{" "}
       </h2>
       {itemList.length > 0 ? (
-        <div className="grid justify-items-center grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-4 gap-5">
+        <div className="grid justify-items-center grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-3 gap-5">
           <Card data={items} action={transferNFT} />
         </div>
       ) : (
