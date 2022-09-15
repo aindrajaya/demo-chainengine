@@ -1,17 +1,17 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
 const History = ({data}) => {
-  const transactions = data || [];
-  const datas = [];
-  transactions.filter((n, idx) => {
-    if (idx % 2 === 1) {
-      return datas.push(n);
-    }
-    return datas;
-  });
+  const [historyData, setHistoryData] = useState([])
 
-  // console.log(datas, "data yang sudah di filter");
+  useEffect(() => {
+    console.log(data, "bentuk data sekarang")
+    const result = data.filter(function( element ) {
+        return element !== undefined;
+    });
+    console.log(result, "data yang udah di filter")
+    setHistoryData(result)
+  }, [data])
 
   return (
     <div className="flex flex-col">
@@ -42,7 +42,7 @@ const History = ({data}) => {
                 </tr>
               </thead>
               <tbody className="divide-y divide-gray-200">
-                {datas?.map((transaction, idx) => (
+                {historyData?.map((transaction, idx) => (
                   <tr>
                     <td className="pl-4 pr-0 py-4 text-sm font-medium text-gray-800">
                       {idx + 1}
