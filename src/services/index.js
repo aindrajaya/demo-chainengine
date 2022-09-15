@@ -7,5 +7,5 @@ export const sdk = new ChainEngineSdk(
   process.env.REACT_APP_SECRET_KEY
 );
 
-export const gameId = "aa626681-f03a-4c8c-a7c8-294051743c53";
+export const gameId = process.env.REACT_APP_GAME_ID;
 export const FetchTypeExport = FetchType
