@@ -83,6 +83,7 @@ export const TransferNFT = (route) => {
     if(data.status === 'OK'){
       transferNFT(data);
     } else {
+      console.log(data)
       alert(`Error, ${data.message}`)
     }
   }
@@ -96,10 +97,14 @@ export const TransferNFT = (route) => {
         selectedItem.id
       );
       if(amountInput >= 1){
-        transferSuccess(data)
-        setOverlayActive(false)
+        if(amountInput >= selectedItem.supplyAvailable){
+          alert(`Your request more than available amount`)
+        } else {
+          transferSuccess(data)
+          setOverlayActive(false)
+        }
       } else {
-        alert(`Error, amount 0 nothing transfered`)
+        alert(`Wrong parameter, please input amount more than 0`)
         setOverlayActive(false)
       }
     } else {
