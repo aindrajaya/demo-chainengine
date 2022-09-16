@@ -119,18 +119,21 @@ export const TransferNFT = (route) => {
 
   return (
     <Fragment>
-      <div className="w-full max-w-sm container mt-20 mx-auto">
-        <LoadingOverlay 
+      <LoadingOverlay 
           styles={{
             wrapper: {
-              width: 'auto',
-              height: 'auto',
+              overflow: 'hidden',
+              width: '100%',
+              height: '100%',
+              position: 'relative',
+              zIndex: 1
             },
           }}
           active={overlayActive} 
           spinner 
           text='Wait a moment, transaction processing...'
         >
+        <div className="w-full max-w-sm container mt-20 mx-auto">
           <form onSubmit={onSubmit}>
             <div className="w-full mb-5">
               <label
@@ -194,8 +197,8 @@ export const TransferNFT = (route) => {
               <Link to="/">Cancel</Link>
             </div>
           </form>
-        </LoadingOverlay>
-      </div>
+        </div>
+      </LoadingOverlay>
     </Fragment>
   );
 };
