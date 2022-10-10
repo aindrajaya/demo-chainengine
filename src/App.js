@@ -8,6 +8,8 @@ import { AddPlayer } from "./components/AddPlayer";
 import { TransferNFT } from "./components/TransferNFT";
 import { AddItem } from "./components/AddItem";
 import NotFound from "./pages/NotFound";
+import UploadImage from "./components/UploadImage";
+import CreateListing from "./components/CreateListing";
 
 function App() {
   return (
@@ -18,6 +20,9 @@ function App() {
         <Route path="/addPlayer" component={AddPlayer} exact />
         <Route path="/addGame" component={NotFound} exact />
         <Route path="/transfer/:id" component={TransferNFT} exact />
+        <Route path="/upload" component={UploadImage} exact />
+        <Route path="/listing" component={CreateListing} exact />
+
       </Switch>
     </GlobalProvider>
   );
